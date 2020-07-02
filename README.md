@@ -11,6 +11,7 @@ xsltproc xsltsslscan.xsl [SSLScan XML file] > [HTML output file]
   - Full: A table with targets, enabled/disabled protocols, server checks, accepted ciphers, key exchange groups, server signature algorithms, and certificate checks.
   
 # Notes
+* Written and tested using sslscan 2.0.0-static on Kali 2020.1.
 * There's currently an extraneous space in the certificate signature algorithm field in the full report, coming from leading spaces in the XML object value.
 * "Bad" results for key exchange groups and server signature algorithms are limited. If you have more to add, which are red or orange in the SSLScan stdout, please provide the corresponding XML object "id" value.
 * There doesn't appear to be an XML result that corresponds to the stdout "Server accepts all signature algorithms" result.
