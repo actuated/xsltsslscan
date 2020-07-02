@@ -6,7 +6,9 @@
 XSLTSSLScan
 XSLT file for SSLScan 2.0 XML results
 Ted R (github: actuated)
-Created 6/30/2020, Last Modified 7/1/2020
+Created 6/30/2020, Last Modified 7/2/2020
+
+07/02/2020 - RE: Issue #1, added key exchange group and server signature algorithm checks, including 0xfdff.
 -->
 <head>
   <title>XSLTSSLScan</title>
@@ -471,7 +473,12 @@ Created 6/30/2020, Last Modified 7/1/2020
         <xsl:choose>
           <xsl:when test="./group">
             <xsl:for-each select="./group">
-              <font class="risk1"><xsl:value-of select="concat('-',./@sslversion,'_',./@bits,'-bits_',./@name)"/></font><br/>
+              <xsl:if test="(./@id = '0x0001') or (./@id = '0x0002') or (./@id = '0x0003') or (./@id = '0x0004') or (./@id = '0x0005') or (./@id = '0x000f') or (./@id = '0x0010') or (./@id = '0x0011') or (./@id = '0x0012') or (./@id = '0x0013')">
+                <font class="risk3"><xsl:value-of select="concat('-',./@sslversion,'_',./@bits,'-bits_',./@name)"/></font><br/>
+              </xsl:if>
+             <xsl:if test="not(./@id = '0x0001') and not(./@id = '0x0002') and not(./@id = '0x0003') and not(./@id = '0x0004') and not(./@id = '0x0005') and not(./@id = '0x000f') and not(./@id = '0x0010') and not(./@id = '0x0011') and not(./@id = '0x0012') and not(./@id = '0x0013')">
+                <font class="risk1"><xsl:value-of select="concat('-',./@sslversion,'_',./@bits,'-bits_',./@name)"/></font><br/>
+              </xsl:if>
             </xsl:for-each>
           </xsl:when>
         </xsl:choose>
@@ -481,13 +488,16 @@ Created 6/30/2020, Last Modified 7/1/2020
         <xsl:choose>
           <xsl:when test="./connection-signature-algorithm">
             <xsl:for-each select="./connection-signature-algorithm">
-              <xsl:if test="(./@id = '0x0201') or (./@id = '0x0202') or (./@id = '0x0203') or (./@id = '0x0302') or (./@id = '0x0402') or (./@id = '0x0501') or (./@id = '0x0602')">
+             <xsl:if test="(./@id = '0xfdff')">
+                <font class="risk3">-Server accepts all signature algorithms</font><br/>
+             </xsl:if>
+             <xsl:if test="(./@id = '0x0001') or (./@id = '0x0002') or (./@id = '0x0003') or (./@id = '0x0101') or (./@id = '0x0102') or (./@id = '0x0103') or (./@id = '0x0201') or (./@id = '0x0202') or (./@id = '0x0203') or (./@id = '0x0302') or (./@id = '0x0402') or (./@id = '0x0502') or (./@id = '0x0602')">
                 <font class="risk3"><xsl:value-of select="concat('-',./@sslversion,'_',./@name)"/></font><br/>
               </xsl:if>
               <xsl:if test="(./@id = '0x0301') or (./@id = '0x0303')">
                 <font class="risk2"><xsl:value-of select="concat('-',./@sslversion,'_',./@name)"/></font><br/>
               </xsl:if>
-              <xsl:if test="not(./@id = '0x0201') and not(./@id = '0x0202') and not(./@id = '0x0203') and not(./@id = '0x0302') and not(./@id = '0x0402') and not(./@id = '0x0501') and not(./@id = '0x0602') and not(./@id = '0x0301') and not(./@id = '0x0303')">
+              <xsl:if test="not(./@id = '0x0001') and not(./@id = '0x0002') and not(./@id = '0x0003') and not(./@id = '0x0101') and not(./@id = '0x0102') and not(./@id = '0x0103') and not(./@id = '0x0201') and not(./@id = '0x0202') and not(./@id = '0x0203') and not(./@id = '0x0302') and not(./@id = '0x0402') and not(./@id = '0x0502') and not(./@id = '0x0602') and not(./@id = '0x0301') and not(./@id = '0x0303') and not(./@id = '0xfdff')">
                 <font class="risk1"><xsl:value-of select="concat('-',./@sslversion,'_',./@name)"/></font><br/>
               </xsl:if>
             </xsl:for-each>
