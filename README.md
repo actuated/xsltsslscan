@@ -3,7 +3,7 @@ XSLT for SSLScan 2.0 XML results
 
 # Usage
 ```
-xsltproc xsltsslscan.xsl [SSLScan XML file] > [HTML output file]
+xsltproc xsltsslscan[version].xsl [SSLScan XML file] > [HTML output file]
 ```
 * Creates an HTML file with three tables:
   - Findings: A table with findings and the applicable hosts/results.
