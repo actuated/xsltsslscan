@@ -98,7 +98,7 @@ Created 6/30/2020, Last Modified 7/2/2020
     </td></tr>
 
     <!--Report SSLv3-->
-    <tr><td>SSLv3 Ciphers</td><td>
+    <tr><td>SSLv3 Enabled</td><td>
     <xsl:for-each select="document/ssltest/protocol">
          <!--Set Order-->
          <xsl:sort select="../@host" order="ascending"/>
