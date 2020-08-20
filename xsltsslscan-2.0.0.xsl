@@ -9,6 +9,7 @@ Ted R (github: actuated)
 Created 6/30/2020, Last Modified 7/2/2020
 
 07/02/2020 - RE: Issue #1, added key exchange group and server signature algorithm checks, including 0xfdff.
+08/19/2020 - Modified Findings Table SSL2/3 and TLS1.0 lists to list hosts and not ciphers. Takes up less space, but mostly because sslscan doesn't currently report accepted SSL2/3 ciphers.
 -->
 <head>
   <title>XSLTSSLScan</title>
@@ -85,46 +86,37 @@ Created 6/30/2020, Last Modified 7/2/2020
     </td></tr>
 
     <!--Report SSLv2-->
-    <tr><td>SSLv2 Ciphers</td><td>
-    <xsl:for-each select="document/ssltest/cipher">
+    <tr><td>SSLv2 Enabled</td><td>
+    <xsl:for-each select="document/ssltest/protocol">
          <!--Set Order-->
          <xsl:sort select="../@host" order="ascending"/>
          <xsl:sort select="../@port" order="ascending"/>
-         <xsl:sort select="./@sslversion" order="descending"/>
-         <xsl:sort select="./@bits" order="descending"/>
-         <xsl:sort select="./@cipher" order="descending"/>
-      <xsl:if test="(./@sslversion = 'SSLv2')">
-          <xsl:value-of select="concat(../@host,':',../@port,' - ',./@sslversion,'_',./@bits,'-bits_',./@cipher)"/><br/>
+      <xsl:if test="((./@type = 'ssl') and (./@version = '2') and (./@enabled = '1'))">
+        <xsl:value-of select="concat(../@host,':',../@port)"/><br/>
       </xsl:if>
     </xsl:for-each>
     </td></tr>
 
     <!--Report SSLv3-->
     <tr><td>SSLv3 Ciphers</td><td>
-    <xsl:for-each select="document/ssltest/cipher">
+    <xsl:for-each select="document/ssltest/protocol">
          <!--Set Order-->
          <xsl:sort select="../@host" order="ascending"/>
          <xsl:sort select="../@port" order="ascending"/>
-         <xsl:sort select="./@sslversion" order="descending"/>
-         <xsl:sort select="./@bits" order="descending"/>
-         <xsl:sort select="./@cipher" order="descending"/>
-      <xsl:if test="(./@sslversion = 'SSLv3')">
-          <xsl:value-of select="concat(../@host,':',../@port,' - ',./@sslversion,'_',./@bits,'-bits_',./@cipher)"/><br/>
+      <xsl:if test="((./@type = 'ssl') and (./@version = '3') and (./@enabled = '1'))">
+        <xsl:value-of select="concat(../@host,':',../@port)"/><br/>
       </xsl:if>
     </xsl:for-each>
     </td></tr>
 
     <!--Report TLSv1.0-->
-    <tr><td>TLSv1.0 Ciphers</td><td>
-    <xsl:for-each select="document/ssltest/cipher">
+    <tr><td>TLSv1.0 Enabled</td><td>
+    <xsl:for-each select="document/ssltest/protocol">
          <!--Set Order-->
          <xsl:sort select="../@host" order="ascending"/>
          <xsl:sort select="../@port" order="ascending"/>
-         <xsl:sort select="./@sslversion" order="descending"/>
-         <xsl:sort select="./@bits" order="descending"/>
-         <xsl:sort select="./@cipher" order="descending"/>
-      <xsl:if test="(./@sslversion = 'TLSv1.0')">
-          <xsl:value-of select="concat(../@host,':',../@port,' - ',./@sslversion,'_',./@bits,'-bits_',./@cipher)"/><br/>
+      <xsl:if test="((./@type = 'tls') and (./@version = '1.0') and (./@enabled = '1'))">
+        <xsl:value-of select="concat(../@host,':',../@port)"/><br/>
       </xsl:if>
     </xsl:for-each>
     </td></tr>
